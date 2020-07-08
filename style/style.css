@@ -1,0 +1,84 @@
+@import "reset.css";
+@import "colors.css";
+
+body {
+    background-color: var(--body-background-color);
+    font-family: Arial, sans-serif;
+    color: var(--black-text-color);
+}
+
+.main {
+    margin: 80px 5%;
+    padding: 80px 100px;
+    background: var(--main-background-color);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
+    border-radius: 16px;
+}
+
+.section__title {
+    padding: 20px 0 40px;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 66px;
+}
+
+.section__filter {
+    display: flex;
+    align-items: center;
+}
+
+.section__filter {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 33px;
+    padding-bottom: 42px;
+}
+
+.filter__item {
+    margin-right: 20px;
+}
+
+.filter__item-label {
+    margin-right: 20px;
+}
+
+.filter__item-select {
+    min-width: 200px;
+    height: 50px;
+    padding-left: 22px;
+}
+
+.select {
+    border: 1px solid var(--select-border-color);
+    box-sizing: border-box;
+    border-radius: 6px;
+}
+
+.section__cards {
+
+}
+
+.cards {
+    margin-bottom: -40px;
+    margin-right: -4.8%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.cards__item {
+    margin-bottom: 40px;
+    margin-right: 4.8%;
+    width: 45.1%;
+    height: 0;
+    padding-bottom: 30.06%;
+    background-color: red;
+}
+
+.card__inner-content {
+    padding-bottom: 66.7%;
+    width: 100%;
+    background: url("https://cdn3.xsolla.com/files/uploaded/113250/826adbf1a19ba19e6ba9af9308d2b309.png") no-repeat center;
+    background-size: cover;
+}
