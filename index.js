@@ -82,7 +82,7 @@ const setEventListingSection = (eventListing, month) => {
 };
 
 const getEventListingData = () => {
-    httpGet(".xsolla/data/events.json").then(
+    httpGet("data/events.json").then(
         response => {
             return JSON.parse(response.toString());
         },
