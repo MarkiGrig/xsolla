@@ -46,28 +46,67 @@ body {
     padding-bottom: calc(42 / var(--html-font-size-px) * var(--html-font-size-vw));
 }
 
+.filter {
+    user-select: none;
+}
+
 .filter__item {
     margin-right: calc(20 / var(--html-font-size-px) * var(--html-font-size-vw));
 }
 
 .filter__item-label {
+    display: flex;
+}
+
+.filter__item-label-text {
+    height: fit-content;
+    align-self: center;
     margin-right: calc(20 / var(--html-font-size-px) * var(--html-font-size-vw));
 }
 
 .filter__item-select {
+    cursor: pointer;
     min-width: calc(200 / var(--html-font-size-px) * var(--html-font-size-vw));
     height: calc(50 / var(--html-font-size-px) * var(--html-font-size-vw));
-    padding-left: calc(22 / var(--html-font-size-px) * var(--html-font-size-vw));
+    position: relative;
+}
+
+.filter__item-select_opened .select__polygon {
+    transform: rotate(-180deg);
 }
 
 .select {
+    cursor: pointer;
+    height: 100%;
     border: calc(1 / var(--html-font-size-px) * var(--html-font-size-vw)) solid var(--select-border-color);
     box-sizing: border-box;
     border-radius: calc(6 / var(--html-font-size-px) * var(--html-font-size-vw));
+    padding-left: calc(22 / var(--html-font-size-px) * var(--html-font-size-vw));
+    padding-right: calc(45 / var(--html-font-size-px) * var(--html-font-size-vw));
+    position: relative;
+    z-index: 3;
+    width: 100%;
+}
+
+.select__polygon {
+    height: fit-content;
+    position: absolute;
+    cursor: default;
+    top: calc(22 / var(--html-font-size-px) * var(--html-font-size-vw));
+    width: calc(14 / var(--html-font-size-px) * var(--html-font-size-vw));
+    right: calc(14 / var(--html-font-size-px) * var(--html-font-size-vw));
+    z-index: 2;
+    transform: rotate(0deg);
+    transition: transform 0.1s;
+}
+
+.select__polygon svg {
+    height: calc(8 / var(--html-font-size-px) * var(--html-font-size-vw));
+    width: calc(14 / var(--html-font-size-px) * var(--html-font-size-vw));
 }
 
 .section__cards {
-
+    margin-bottom: calc(40 / var(--html-font-size-px) * var(--html-font-size-vw) * -1);
 }
 
 .cards {
@@ -75,29 +114,37 @@ body {
     flex-wrap: wrap;
     justify-content: space-between;
     align-content: center;
-    margin-bottom: calc(40 / var(--html-font-size-px) * var(--html-font-size-vw) * -1);
 }
 
 .cards__item {
     width: calc(600 / var(--html-font-size-px) * var(--html-font-size-vw));
     height: calc(400 / var(--html-font-size-px) * var(--html-font-size-vw));
     margin-bottom: calc(40 / var(--html-font-size-px) * var(--html-font-size-vw));
+}
+
+.card {
     position: relative;
+    border-radius: calc(6 / var(--html-font-size-px) * var(--html-font-size-vw));
+    overflow: hidden;
+}
+
+.card:hover .card__background {
+    background-size: 120% 120%;
 }
 
 .card__background {
     height: 100%;
     width: 100%;
     background: var(--background-image-url) no-repeat center;
-    background-size: cover;
+    background-size: 100% 100%;
     z-index: -1;
+    transition: background-size 0.3s ease-in-out;
 }
 
 .card__background-filter {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.2);
-    border-radius: calc(6 / var(--html-font-size-px) * var(--html-font-size-vw));
 }
 
 .card__content-container {
@@ -110,6 +157,8 @@ body {
 }
 
 .card__content {
+    cursor: default;
+    user-select: none;
     width: 100%;
     height: 100%;
     padding: calc(40 / var(--html-font-size-px) * var(--html-font-size-vw));
@@ -127,9 +176,10 @@ body {
 }
 
 .card__content-date {
+    user-select: none;
     font-weight: normal;
     border: solid var(--main-background-color);
-    border-width: calc(2 / (var(--html-font-size-px) + 1000) * (var(--html-font-size-vw) + 1000)) ;
+    border-width: calc(2 / (var(--html-font-size-px) + 1000) * (var(--html-font-size-vw) + 1000));
     box-sizing: border-box;
     border-radius: calc(6 / var(--html-font-size-px) * var(--html-font-size-vw));
     padding: calc(8 / var(--html-font-size-px) * var(--html-font-size-vw))
@@ -144,8 +194,26 @@ body {
     font-weight: 900;
 }
 
+.card__content-svg {
+    cursor: pointer;
+    padding: calc(20 / var(--html-font-size-px) * var(--html-font-size-vw));
+    margin: calc(-20 / var(--html-font-size-px) * var(--html-font-size-vw));
+    width: calc(56 / var(--html-font-size-px) * var(--html-font-size-vw));
+    height: calc(58 / var(--html-font-size-px) * var(--html-font-size-vw));
+    border-radius: 50%;
+    z-index: 999;
+}
+
 .card__content-svg svg {
     width: calc(16 / var(--html-font-size-px) * var(--html-font-size-vw));
     height: calc(20 / var(--html-font-size-px) * var(--html-font-size-vw));
     stroke-width: calc(2 / (var(--html-font-size-px) + 10000) * (var(--html-font-size-vw) + 10000));
+    stroke: var(--main-background-color);
+    fill: none;
+    transition: fill 0.1s;
 }
+
+.card__content-svg_toggled svg {
+    fill: var(--main-background-color);
+}
+

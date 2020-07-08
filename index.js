@@ -32,8 +32,12 @@ const getSelectOption = (text) => {
     return `<option class="select__option">${text}</option>`;
 };
 
+const getCitiesSelector = () => {
+    return document.querySelector(".section__filter .filter__item-city .select");
+};
+
 const setCitiesSelector = (eventListing) => {
-    const citySelector = document.querySelector(".section__filter .filter__item-city .select");
+    const citySelector = getCitiesSelector();
     const cityList = eventListing.map(event => event.city ? event.city : null)
         .filter(city => city)
         .sort();
@@ -53,7 +57,7 @@ const getCard = (cardData) => {
                             <div class="card__content-date">${getDayFromDate(cardData.date)}</div>
                             <div class="card__content-svg">
                                 <svg viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M15 19L8 14L1 19V3C1 2.46957 1.21071 1.96086 1.58579 1.58579C1.96086 1.21071 2.46957 1 3 1H13C13.5304 1 14.0391 1.21071 14.4142 1.58579C14.7893 1.96086 15 2.46957 15 3V19Z" stroke="white" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    <path d="M15 19L8 14L1 19V3C1 2.46957 1.21071 1.96086 1.58579 1.58579C1.96086 1.21071 2.46957 1 3 1H13C13.5304 1 14.0391 1.21071 14.4142 1.58579C14.7893 1.96086 15 2.46957 15 3V19Z" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </div>
                         </div>
@@ -79,6 +83,7 @@ const setCards = (_cards, month) => {
 const setEventListingSection = (eventListing, month) => {
     setCitiesSelector(eventListing);
     setCards(eventListing, month);
+    setBookmarkToggleEvent();
 };
 
 const getEventListingData = () => {
@@ -94,6 +99,7 @@ const getEventListingData = () => {
             if (!response.code) {
                 eventListing = response;
                 setEventListingSection(eventListing);
+                setSelectorToggleEvent();
             } else {
                 const errorText = response.code ? response.code : 'no server answer';
                 alert(`Rejected: ${errorText}`);
@@ -101,6 +107,43 @@ const getEventListingData = () => {
             }
         }
     )
+};
+
+const toggleClass = (element, className) => {
+    const classList = element.classList;
+    if (classList.contains(className)) {
+        classList.remove(className);
+    } else {
+        classList.add(className);
+    }
+};
+
+const setBookmarkToggleEvent = () => {
+    const bookmarks = document.getElementsByClassName("card__content-svg");
+    for (let i = 0; i < bookmarks.length; i++) {
+        const bookmark = bookmarks[i];
+        bookmark.onclick = function () {
+            toggleClass(bookmark, "card__content-svg_toggled");
+        }
+    }
+};
+
+const setSelectorToggleEvent = () => {
+    const selectors = document.getElementsByClassName("filter__item-select");
+    for (let i = 0; i < selectors.length; i++) {
+        const selector = selectors[i];
+        selector.onclick = function () {
+            toggleClass(selector, "filter__item-select_opened");
+        }
+    }
+};
+
+const setCitySelectorEvents = () => {
+
+};
+
+const setMonthSelectorEvents = () => {
+
 };
 
 getEventListingData();
