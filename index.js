@@ -134,6 +134,9 @@ const setSelectorToggleEvent = () => {
         const selector = selectors[i];
         selector.onclick = function () {
             toggleClass(selector, "filter__item-select_opened");
+        };
+        selector.children[0].onblur = function () {
+            selector.classList.remove("filter__item-select_opened");
         }
     }
 };
