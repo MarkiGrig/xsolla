@@ -1,7 +1,7 @@
 @import "reset.css";
 @import "colors.css";
 
-@media screen and (max-width: 980px) {
+@media screen and (max-width: 1000px) {
     html {
         --maket-width: 768 !important;
         --html-font-size-vw: calc(var(--html-font-size-px) / var(--maket-width) * 100vw) !important;
