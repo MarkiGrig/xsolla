@@ -162,6 +162,8 @@ body {
 }
 
 .section__cards {
+    height: fit-content;
+    min-height: calc(40 / var(--html-font-size-px) * var(--html-font-size-vw));
     margin-bottom: calc(40 / var(--html-font-size-px) * var(--html-font-size-vw) * -1);
 }
 
