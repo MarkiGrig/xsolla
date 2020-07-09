@@ -1,4 +1,21 @@
-let eventListing;
+let eventListing = null;
+let city = null;
+let month = null;
+
+let Month = {
+    "January": "01",
+    "February": "02",
+    "March": "03",
+    "April": "04",
+    "May": "05",
+    "June": "06",
+    "July": "07",
+    "August": "08",
+    "September": "09",
+    "October": "10",
+    "November": "11",
+    "December": "12",
+};
 
 const getMonthFromDate = (date) => {
     return date.split('.')[1];
@@ -69,21 +86,26 @@ const getCard = (cardData) => {
             </div>`
 };
 
-const setCards = (_cards, month) => {
+const setCards = (_cards, city, month) => {
+    const monthNumber = Month[month];
     let cards = _cards;
-    if (month) {
-        cards = cards.filter(card => getMonthFromDate(card.date) === month);
+    if (month && month !== "All") {
+        cards = cards.filter(card => getMonthFromDate(card.date) === monthNumber);
+    }
+    if (city && city !== "All") {
+        cards = cards.filter(card => card.city === city);
     }
     const cardsElement = document.querySelector(".section .section__cards");
+    cardsElement.innerHTML = "";
     cards.forEach(card => {
         cardsElement.innerHTML = cardsElement.innerHTML + getCard(card);
-    })
+    });
+    setBookmarkToggleEvent();
 };
 
-const setEventListingSection = (eventListing, month) => {
+const setEventListingSection = (eventListing, city, month) => {
     setCitiesSelector(eventListing);
-    setCards(eventListing, month);
-    setBookmarkToggleEvent();
+    setCards(eventListing, city, month);
 };
 
 const getEventListingData = () => {
@@ -99,7 +121,9 @@ const getEventListingData = () => {
             if (!response.code) {
                 eventListing = response;
                 setEventListingSection(eventListing);
-                setSelectorToggleEvent();
+                setCitySelectorEvents(eventListing);
+                setCitySelectorEvents(eventListing);
+                setMonthSelectorEvents(eventListing);
             } else {
                 const errorText = response.code ? response.code : 'no server answer';
                 alert(`Rejected: ${errorText}`);
@@ -128,27 +152,28 @@ const setBookmarkToggleEvent = () => {
     }
 };
 
-const setSelectorToggleEvent = () => {
-    const selectors = document.getElementsByClassName("filter__item-select");
+const setCitySelectorEvents = (eventListing) => {
+    const selectors = document.querySelectorAll(".filter__item-city .filter__item-label .filter__item-select");
     for (let i = 0; i < selectors.length; i++) {
         const selector = selectors[i];
-        selector.onclick = function () {
-            toggleClass(selector, "filter__item-select_opened");
+        const select = selector.children[0];
+        select.onchange = function (e) {
+            city = e.target.value;
+            setCards(eventListing, city, month);
         };
-        window.addEventListener("click", (e) => {
-            if (e.target != "[object HTMLSelectElement]") {
-                selector.classList.remove("filter__item-select_opened");
-            }
-        }, false)
     }
 };
 
-const setCitySelectorEvents = () => {
-
-};
-
-const setMonthSelectorEvents = () => {
-
+const setMonthSelectorEvents = (eventListing) => {
+    const selectors = document.querySelectorAll(".filter__item-month .filter__item-label .filter__item-select");
+    for (let i = 0; i < selectors.length; i++) {
+        const selector = selectors[i];
+        const select = selector.children[0];
+        select.onchange = function (e) {
+            month = e.target.value;
+            setCards(eventListing, city, month);
+        };
+    }
 };
 
 getEventListingData();

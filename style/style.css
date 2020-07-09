@@ -1,6 +1,58 @@
 @import "reset.css";
 @import "colors.css";
 
+@media screen and (max-width: 768px) {
+    html {
+        --maket-width: 768 !important;
+        --html-font-size-vw: calc(var(--html-font-size-px) / var(--maket-width) * 100vw) !important;
+        font-size: var(--html-font-size-vw) !important;
+    }
+
+    .cards {
+        flex-direction: column !important;
+    }
+
+    .cards__item {
+        width: 100% !important;
+        height: calc(432 / var(--html-font-size-px) * var(--html-font-size-vw));
+    }
+
+    .main {
+        margin: calc(20 / var(--html-font-size-px) * var(--html-font-size-vw)) auto !important;
+        padding: calc(30 / var(--html-font-size-px) * var(--html-font-size-vw))
+        calc(30/ var(--html-font-size-px) * var(--html-font-size-vw))
+        calc(20 / var(--html-font-size-px) * var(--html-font-size-vw)) !important;
+        box-shadow: 0 calc(16 / var(--html-font-size-px) * var(--html-font-size-vw))
+        calc(32 / var(--html-font-size-px) * var(--html-font-size-vw)) rgba(0, 0, 0, 0.12) !important;
+        border-radius: calc(16 / var(--html-font-size-px) * var(--html-font-size-vw)) !important;
+        width: calc(708 / var(--html-font-size-px) * var(--html-font-size-vw)) !important;
+    }
+
+    .section__filter {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: left !important;
+        padding-bottom: calc(21 / var(--html-font-size-px) * var(--html-font-size-vw)) !important;
+    }
+
+    .filter__item-select {
+        min-width: calc(216 / var(--html-font-size-px) * var(--html-font-size-vw)) !important;
+    }
+
+    .filter__item-label-text {
+        width: calc(80 / var(--html-font-size-px) * var(--html-font-size-vw)) !important;
+    }
+
+    .filter__item {
+        margin-bottom: calc(15 / var(--html-font-size-px) * var(--html-font-size-vw)) !important;;
+    }
+
+    .filter__item:last-of-type {
+        margin-bottom: 0 !important;
+    }
+}
+
+
 html {
     --html-font-size-px: 24;
     --maket-width: 1600;
@@ -69,10 +121,16 @@ body {
     min-width: calc(200 / var(--html-font-size-px) * var(--html-font-size-vw));
     height: calc(50 / var(--html-font-size-px) * var(--html-font-size-vw));
     position: relative;
+    background: var(--main-background-color);
+    transition: background-color 0.3s;
 }
 
-.filter__item-select_opened .select__polygon {
-    transform: rotate(-180deg);
+.filter__item-select:hover {
+    background: #eaeaea;
+}
+
+.filter__item-select:active {
+    background: #e2e2e2;
 }
 
 .select {
@@ -96,8 +154,6 @@ body {
     width: calc(14 / var(--html-font-size-px) * var(--html-font-size-vw));
     right: calc(14 / var(--html-font-size-px) * var(--html-font-size-vw));
     z-index: 2;
-    transform: rotate(0deg);
-    transition: transform 0.1s;
 }
 
 .select__polygon svg {
@@ -179,7 +235,7 @@ body {
     user-select: none;
     font-weight: normal;
     border: solid var(--main-background-color);
-    border-width: calc(2 / (var(--html-font-size-px) + 1000) * (var(--html-font-size-vw) + 1000));
+    border-width: calc(2 / (var(--html-font-size-px)) * (var(--html-font-size-vw)));
     box-sizing: border-box;
     border-radius: calc(6 / var(--html-font-size-px) * var(--html-font-size-vw));
     padding: calc(8 / var(--html-font-size-px) * var(--html-font-size-vw))
