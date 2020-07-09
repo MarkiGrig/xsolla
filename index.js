@@ -177,9 +177,3 @@ const setMonthSelectorEvents = (eventListing) => {
 };
 
 getEventListingData();
-
-document.querySelector("#width-counter").innerHTML =  window.innerWidth.toString();
-
-window.onresize = function () {
-    document.querySelector("#width-counter").innerHTML =  window.innerWidth.toString();
-};
