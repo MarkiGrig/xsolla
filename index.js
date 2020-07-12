@@ -17,14 +17,26 @@ let Month = {
     "December": "12",
 };
 
+/**
+ * Gets month from date with string type.
+ * @param {string} date - date with format: "day.month.year".
+ */
 const getMonthFromDate = (date) => {
     return date.split('.')[1];
 };
 
+/**
+ * Gets day from date with string type.
+ * @param {string} date - date with format: "day.month.year".
+ */
 const getDayFromDate = (date) => {
     return date.split('.')[0];
 };
 
+/**
+ * Returns Promise and gets data with GET request.
+ * @param {string} url - url to send GET request.
+ */
 const httpGet = (url) => {
     return new Promise(function (resolve, reject) {
         const xhr = new XMLHttpRequest();
@@ -45,14 +57,25 @@ const httpGet = (url) => {
     });
 };
 
+/**
+ * Returns html markup for a select option with custom text.
+ * @param {string} text- option text.
+ */
 const getSelectOption = (text) => {
     return `<option class="select__option">${text}</option>`;
 };
 
+/**
+ * Returns DOM select element which is city filter.
+ */
 const getCitiesSelector = () => {
     return document.querySelector(".section__filter .filter__item-city .select");
 };
 
+/**
+ * Sets inner html markup for city selector, adds options according received data/
+ * @param {object[]} eventListing - data from GET request with a list of events.
+ */
 const setCitiesSelector = (eventListing) => {
     const citySelector = getCitiesSelector();
     const cityList = eventListing.map(event => event.city ? event.city : null)
@@ -63,6 +86,10 @@ const setCitiesSelector = (eventListing) => {
     })
 };
 
+/**
+ * Returns custom markup for an event card according to card object.
+ * @param {object} cardData - object which contains data for an event card.
+ */
 const getCard = (cardData) => {
     return `<div class="cards__item card">
                 <div class="card__background" style="--background-image-url: url('${cardData.image}');">
@@ -86,6 +113,12 @@ const getCard = (cardData) => {
             </div>`
 };
 
+/**
+ * Fills card section with cards suits filters.
+ * @param {object[]} _cards - data from GET request with a list of events.
+ * @param {string} city - city selected as a filter.
+ * @param {string} month - month selected as a filter.
+ */
 const setCards = (_cards, city, month) => {
     const monthNumber = Month[month];
     let cards = _cards;
@@ -103,11 +136,21 @@ const setCards = (_cards, city, month) => {
     setBookmarkToggleEvent();
 };
 
+/**
+ * Sets city selector and card section markup.
+ * @param {object[]} eventListing - data from GET request with a list of events.
+ * @param {string} [city] - city selected as a filter.
+ * @param {string} [month] - month selected as a filter.
+ */
 const setEventListingSection = (eventListing, city, month) => {
     setCitiesSelector(eventListing);
     setCards(eventListing, city, month);
 };
 
+/**
+ * Parses received data and sets all filters, events and markup
+ * Sets city selector and card section markup.
+ */
 const getEventListingData = () => {
     httpGet("data/events.json").then(
         response => {
@@ -133,6 +176,11 @@ const getEventListingData = () => {
     )
 };
 
+/**
+ * Adds or removes class for a DOM element.
+ * @param {element} element - DOM node.
+ * @param {string} className - some class name.
+ */
 const toggleClass = (element, className) => {
     const classList = element.classList;
     if (classList.contains(className)) {
@@ -142,6 +190,9 @@ const toggleClass = (element, className) => {
     }
 };
 
+/**
+ * Sets bookmark button click event.
+ */
 const setBookmarkToggleEvent = () => {
     const bookmarks = document.getElementsByClassName("card__content-svg");
     for (let i = 0; i < bookmarks.length; i++) {
@@ -152,6 +203,10 @@ const setBookmarkToggleEvent = () => {
     }
 };
 
+/**
+ * Sets city filter change event.
+ * @param {object[]} eventListing - data from GET request with a list of events.
+ */
 const setCitySelectorEvents = (eventListing) => {
     const selectors = document.querySelectorAll(".filter__item-city .filter__item-label .filter__item-select");
     for (let i = 0; i < selectors.length; i++) {
@@ -164,6 +219,10 @@ const setCitySelectorEvents = (eventListing) => {
     }
 };
 
+/**
+ * Sets month filter change event.
+ * @param {object[]} eventListing - data from GET request with a list of events.
+ */
 const setMonthSelectorEvents = (eventListing) => {
     const selectors = document.querySelectorAll(".filter__item-month .filter__item-label .filter__item-select");
     for (let i = 0; i < selectors.length; i++) {
